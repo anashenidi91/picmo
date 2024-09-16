@@ -16,12 +16,12 @@ jobs:
         node-version: [16.16.0]
 
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2  # Updated checkout action to v2 for better performance and features
     - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
+      uses: actions/setup-node@v3  # Updated to v3 to support cache and other improvements
       with:
         node-version: ${{ matrix.node-version }}
-        cache: 'npm'
+        cache: 'npm'  # 'cache' is now valid with setup-node@v3
     - name: npm install, build, and test
       run: |
         npm ci
