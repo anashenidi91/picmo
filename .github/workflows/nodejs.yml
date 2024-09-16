@@ -17,14 +17,21 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2  # Updated checkout action to v2 for better performance and features
+    
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3  # Updated to v3 to support cache and other improvements
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'  # 'cache' is now valid with setup-node@v3
-    - name: npm install, build, and test
+
+    - name: Install Dependencies
+      run: npm ci  # Install all dependencies from package-lock.json
+
+    - name: Install PicMo
+      run: npm install picmo  # Install PicMo specifically
+
+    - name: Build and Test
       run: |
-        npm ci
         npm run build
         npm run precommit
       env:
